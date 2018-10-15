@@ -3,10 +3,7 @@ from datetime import datetime
 from elasticsearch import Elasticsearch
 from flask import Flask, jsonify, request, Blueprint
 from flasgger import Swagger
-from threading import Thread
 
-from webargs import fields
-from webargs.flaskparser import use_kwargs
 
 
 ############################################################################

@@ -3,3 +3,4 @@ Flask
 Flask-Script==2.0.6
 flask-swagger-ui
 flasgger==0.6.1
+elasticsearch
