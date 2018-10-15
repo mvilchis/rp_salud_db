@@ -1,15 +1,9 @@
-FROM alpine:3.7
-
-RUN apk add --no-cache \
-        uwsgi-python3 \
-        python3
-
+FROM revolutionsystems/python:3.6.3-wee-optimized-lto
 COPY requirements.txt /app/
-
 
 WORKDIR /app
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 COPY . /app
 

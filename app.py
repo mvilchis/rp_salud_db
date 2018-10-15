@@ -92,7 +92,6 @@ def get_history_quiz(quiz):
         description: History of quiz
     """
     total_result = {}
-    print quiz
     result = es.search(index = quiz, body = {})
     if result["hits"]["hits"]:
         total_result[quiz] = [item["_source"] for item in result["hits"]["hits"]]
