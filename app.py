@@ -39,7 +39,7 @@ es = Elasticsearch([elasticsearch_url.format(ip=elastic_ip, port=elastic_port)])
 @app.route("/<string:quiz_id>/<string:contact_urn>/", methods=['GET'])
 def view_send_news(quiz_id, contact_urn):
     if not es.indices.exists(index = quiz_id):
-        es.indices.create(index = quiz_id)
+        es.indices.create(index = quiz_id.lower())
     json_dict= {}
     for key in request.values:
         json_dict[key] = str(request.args.get(key))
@@ -106,10 +106,13 @@ def get_history_quiz(quiz):
         description: History of quiz
     """
     total_result = {}
-    result = es.search(index = quiz, body = {})
-    if result["hits"]["hits"]:
-        total_result[quiz] = [item["_source"] for item in result["hits"]["hits"]]
-    return jsonify(total_result)
+    try:
+        result = es.search(index = quiz, body = {})
+        if result["hits"]["hits"]:
+            total_result[quiz] = [item["_source"] for item in result["hits"]["hits"]]
+        return jsonify(total_result)
+    except:
+        return jsonify({"Historico no encontrado": "Not found"})
 
 
 
