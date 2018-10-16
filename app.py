@@ -38,8 +38,9 @@ es = Elasticsearch([elasticsearch_url.format(ip=elastic_ip, port=elastic_port)])
 ############################################################################
 @app.route("/<string:quiz_id>/<string:contact_urn>/", methods=['GET'])
 def view_send_news(quiz_id, contact_urn):
+    quiz_id = quiz_id.lower()
     if not es.indices.exists(index = quiz_id):
-        es.indices.create(index = quiz_id.lower())
+        es.indices.create(index = quiz_id)
     json_dict= {}
     for key in request.values:
         json_dict[key] = str(request.args.get(key))
